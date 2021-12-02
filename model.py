@@ -38,7 +38,7 @@ class ResidualConvBlock(nn.Module):
 
 
 class DRRN(nn.Module):
-    def __init__(self) -> None:
+    def __init__(self, num_residual_unit: int) -> None:
         super(DRRN, self).__init__()
         # Input layer
         self.conv1 = nn.Sequential(
@@ -48,7 +48,7 @@ class DRRN(nn.Module):
 
         # Features trunk blocks
         trunk = []
-        for _ in range(25):
+        for _ in range(num_residual_unit):
             trunk.append(ResidualConvBlock(128))
         self.trunk = nn.Sequential(*trunk)
 

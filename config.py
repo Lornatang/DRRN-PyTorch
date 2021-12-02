@@ -22,8 +22,9 @@ torch.manual_seed(0)
 device = torch.device("cuda", 0)
 cudnn.benchmark = True
 upscale_factor = 2
+num_residual_unit = 9
 mode = "train"
-exp_name = "baseline"
+exp_name = "DRRN_B1U9"
 
 # ==============================================================================
 # Training configuration

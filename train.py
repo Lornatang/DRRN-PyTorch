@@ -109,7 +109,7 @@ def load_dataset() -> [DataLoader, DataLoader]:
 
 
 def build_model() -> nn.Module:
-    model = DRRN().to(config.device)
+    model = DRRN(config.num_residual_unit).to(config.device)
 
     return model
 

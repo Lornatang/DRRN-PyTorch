@@ -32,7 +32,7 @@ def main() -> None:
 
     # Initialize the super-resolution model
     print("Build SR model...")
-    model = DRRN().to(config.device, non_blocking=True)
+    model = DRRN(config.num_residual_unit).to(config.device, non_blocking=True)
     print("Build SR model successfully.")
 
     # Load the super-resolution model weights
