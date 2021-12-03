@@ -115,7 +115,7 @@ def build_model() -> nn.Module:
 
 
 def define_loss() -> nn.MSELoss:
-    criterion = nn.MSELoss().to(config.device)
+    criterion = nn.MSELoss(reduction="sum").to(config.device)
 
     return criterion
 
@@ -156,7 +156,7 @@ def train(model, train_dataloader, criterion, optimizer, epoch, scaler, writer) 
 
     batch_time = AverageMeter("Time", ":6.3f")
     data_time = AverageMeter("Data", ":6.3f")
-    losses = AverageMeter("Loss", ":6.6f")
+    losses = AverageMeter("Loss", ":8.6f")
     psnres = AverageMeter("PSNR", ":4.2f")
     progress = ProgressMeter(batches, [batch_time, data_time, losses, psnres], prefix=f"Epoch: [{epoch}]")
 
@@ -181,7 +181,7 @@ def train(model, train_dataloader, criterion, optimizer, epoch, scaler, writer) 
         # Gradient zoom + gradient clipping
         scaler.scale(loss).backward()
         scaler.unscale_(optimizer)
-        torch.nn.utils.clip_grad_norm_(model.parameters(), max_norm=config.model_clip_gradient, norm_type=2.0)
+        torch.nn.utils.clip_grad_norm_(model.parameters(), max_norm=config.model_clip_gradient / optimizer.param_groups[0]["lr"], norm_type=2.0)
         # Update generator weight
         scaler.step(optimizer)
         scaler.update()
@@ -195,18 +195,16 @@ def train(model, train_dataloader, criterion, optimizer, epoch, scaler, writer) 
         batch_time.update(time.time() - end)
         end = time.time()
 
-        if index % config.print_frequency == 0:
-            progress.display(index)
-
         # In this Epoch, every one hundred iterations and the last iteration print the loss function
         # and write it to Tensorboard at the same time
-        if (index + 1) % 100 == 0 or (index + 1) == batches:
+        if index % config.print_frequency == 0 or (index + 1) == batches:
+            progress.display(index)
             writer.add_scalar("Train/Loss", loss.item(), index + epoch * batches + 1)
 
 
 def validate(model, valid_dataloader, criterion, epoch, writer) -> float:
     batch_time = AverageMeter("Time", ":6.3f")
-    losses = AverageMeter("Loss", ":6.6f")
+    losses = AverageMeter("Loss", ":8.6f")
     psnres = AverageMeter("PSNR", ":4.2f")
     progress = ProgressMeter(len(valid_dataloader), [batch_time, losses, psnres], prefix="Valid: ")
 
