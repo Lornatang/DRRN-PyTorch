@@ -12,27 +12,28 @@
 # limitations under the License.
 # ============================================================================
 """Realize the model definition function."""
-from math import sqrt
 
 import torch
 from torch import nn
 
 
-class ResidualConvBlock(nn.Module):
-    def __init__(self, channels: int) -> None:
-        super(ResidualConvBlock, self).__init__()
-        self.rcb = nn.Sequential(
-            nn.Conv2d(channels, channels, (3, 3), (1, 1), (1, 1), bias=False),
-            nn.ReLU(True),
-            nn.Conv2d(channels, channels, (3, 3), (1, 1), (1, 1), bias=False),
-            nn.ReLU(True),
+class RecursiveBlock(nn.Module):
+    def __init__(self, num_channels: int, num_residual_unit: int):
+        super(RecursiveBlock, self).__init__()
+        self.num_residual_unit = num_residual_unit
+
+        self.residual_unit = nn.Sequential(
+            nn.ReLU(inplace=True),
+            nn.Conv2d(num_channels, num_channels, (3, 3), (1, 1), (1, 1), bias=False),
+            nn.ReLU(inplace=True),
+            nn.Conv2d(num_channels, num_channels, (3, 3), (1, 1), (1, 1), bias=False),
         )
 
-    def forward(self, x: torch.Tensor) -> torch.Tensor:
-        identity = x
-
-        out = self.rcb(x)
-        out = torch.add(identity, out)
+    def forward(self, x: torch.Tensor):
+        out = x
+        for _ in range(self.num_residual_unit):
+            out = self.residual_unit(out)
+            out = torch.add(out, x)
 
         return out
 
@@ -42,20 +43,17 @@ class DRRN(nn.Module):
         super(DRRN, self).__init__()
         # Input layer
         self.conv1 = nn.Sequential(
-            nn.Conv2d(1, 128, (3, 3), (1, 1), (1, 1), bias=False),
             nn.ReLU(True),
+            nn.Conv2d(1, 128, (3, 3), (1, 1), (1, 1), bias=False),
         )
 
         # Features trunk blocks
-        trunk = []
-        for _ in range(num_residual_unit):
-            trunk.append(ResidualConvBlock(128))
-        self.trunk = nn.Sequential(*trunk)
+        self.trunk = RecursiveBlock(128, num_residual_unit)
 
         # Output layer
         self.conv2 = nn.Sequential(
-            nn.Conv2d(128, 1, (3, 3), (1, 1), (1, 1), bias=False),
             nn.ReLU(True),
+            nn.Conv2d(128, 1, (3, 3), (1, 1), (1, 1), bias=False),
         )
 
         # Initialize model weights
@@ -71,7 +69,7 @@ class DRRN(nn.Module):
         out = self.conv1(x)
         out = self.trunk(out)
         out = self.conv2(out)
-        out = torch.add(out, identity)
+        out = torch.add(identity, out)
 
         return out
 
@@ -79,3 +77,5 @@ class DRRN(nn.Module):
         for module in self.modules():
             if isinstance(module, nn.Conv2d):
                 nn.init.kaiming_normal_(module.weight, mode="fan_out", nonlinearity="relu")
+                if module.bias is not None:
+                    nn.init.constant_(module.bias, 0)
