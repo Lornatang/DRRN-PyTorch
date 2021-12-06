@@ -1,15 +1,17 @@
-# VDSR-PyTorch
+# DRRN-PyTorch
 
 ### Overview
 
-This repository contains an op-for-op PyTorch reimplementation of [Accurate Image Super-Resolution Using Very Deep Convolutional Networks](https://arxiv.org/abs/1511.04587).
+This repository contains an op-for-op PyTorch reimplementation
+of [Image Super-Resolution via Deep Recursive Residual Network](https://openaccess.thecvf.com/content_cvpr_2017/papers/Tai_Image_Super-Resolution_via_CVPR_2017_paper.pdf)
+.
 
 ### Table of contents
 
-- [VDSR-PyTorch](#vdsr-pytorch)
+- [DRRN-PyTorch](#drrn-pytorch)
     - [Overview](#overview)
     - [Table of contents](#table-of-contents)
-    - [About Accurate Image Super-Resolution Using Very Deep Convolutional Networks](#about-accelerating-the-super-resolution-convolutional-neural-network)
+    - [About Image Super-Resolution via Deep Recursive Residual Network](#about-image-super-resolution-via-deep-recursive-residual-network)
     - [Download weights](#download-weights)
     - [Download datasets](#download-datasets)
         - [Download train dataset](#download-train-dataset)
@@ -18,24 +20,24 @@ This repository contains an op-for-op PyTorch reimplementation of [Accurate Imag
     - [Train](#train)
     - [Result](#result)
     - [Credit](#credit)
-        - [Accelerating the Super-Resolution Convolutional Neural Network](#accurate-image-super-resolution-using-very-deep-convolutional-networks)
+        - [Image Super-Resolution via Deep Recursive Residual Network](#image-super-resolution-via-deep-recursive-residual-network)
 
-## About Accelerating the Super-Resolution Convolutional Neural Network
+## About Image Super-Resolution via Deep Recursive Residual Network
 
-If you're new to VDSR, here's an abstract straight from the paper:
+If you're new to DRRN, here's an abstract straight from the paper:
 
-We present a highly accurate single-image superresolution (SR) method. Our method uses a very deep convolutional network inspired by VGG-net used for
-ImageNet classification. We find increasing our network depth shows a significant improvement in accuracy. Our finalmodel uses 20 weight layers. By
-cascading small filters many times in a deep network structure, contextual information over large image regions is exploited in an efficient way. With
-very deep networks, however, convergence speed becomes a critical issue during training. We propose a simple yet effective training procedure. We
-learn residuals onlyb and use extremely high learning rates
-(104 times higher than SRCNN) enabled by adjustable gradient clipping. Our proposed method performs better than existing methods in accuracy and
-visual improvements in our results are easily noticeable.
+Recently, Convolutional Neural Network (CNN) based models have achieved great success in Single Image SuperResolution (SISR). Owing to the strength of
+deep networks, these CNN models learn an effective nonlinear mapping from the low-resolution input image to the high-resolution target image, at the
+cost of requiring enormous parameters. This paper proposes a very deep CNN model (up to 52 convolutional layers) named Deep Recursive Residual Network
+(DRRN) that strives for deep yet concise networks. Specifically, residual learning is adopted, both in global and local manners, to mitigate the
+difficulty of training very deep networks; recursive learning is used to control the model parameters while increasing the depth. Extensive benchmark
+evaluation shows that DRRN significantly outperforms state of the art in SISR, while utilizing far fewer parameters. Code is available
+at https://github.com/tyshiwo/DRRN CVPR17.
 
 ## Download weights
 
-- [Google Driver](https://drive.google.com/drive/folders/1vrf4VdjuQXCmVo0uqs3kTlls-fPaRRpc?usp=sharing)
-- [Baidu Driver](https://pan.baidu.com/s/16HnByHXp0cW57RfpdwHahQ) access:`llot`
+- [Google Driver](https://drive.google.com/drive/folders/1yLlwp-W-VTqSPbR7QispSfosLdKEz6Wg?usp=sharing)
+- [Baidu Driver](https://pan.baidu.com/s/1Hk7iEpsvuw-DXHEKTj9RMw) access:`llot`
 
 ## Download datasets
 
@@ -99,41 +101,41 @@ If you want to load weights that you've trained before, modify the contents of t
 
 ## Result
 
-Source of original paper results: https://arxiv.org/pdf/1511.04587.pdf
+Source of original paper results: https://openaccess.thecvf.com/content_cvpr_2017/papers/Tai_Image_Super-Resolution_via_CVPR_2017_paper.pdf
 
 In the following table, the value in `()` indicates the result of the project, and `-` indicates no test.
 
-| Dataset | Scale |       PSNR       |
-|:-------:|:-----:|:----------------:|
-|  Set5   |   2   | 37.53(**37.44**) |
-|  Set5   |   3   | 33.66(**33.69**) |
-|  Set5   |   4   | 31.35(**31.28**) |
+| Dataset | Scale | (DRRN_B1U9) PSNR | (DRRN_B1U25) PSNR |
+|:-------:|:-----:|:----------------:|:-----------------:|
+|  Set5   |   2   | 37.66(**37.56**) |    37.74(****)    |
+|  Set5   |   3   | 33.93(**33.75**) |    34.03(****)    |
+|  Set5   |   4   | 31.58(**31.34**) |    31.68(****)    |
 
 Low Resolution / Super Resolution / High Resolution
 <span align="center"><img src="assets/result.png"/></span>
 
 ### Credit
 
-#### Accurate Image Super-Resolution Using Very Deep Convolutional Networks
+#### Image Super-Resolution via Deep Recursive Residual Network
 
-_Jiwon Kim, Jung Kwon Lee, Kyoung Mu Lee_ <br>
+_Ying Tai, Jian Yang1, Xiaoming Liu_ <br>
 
 **Abstract** <br>
-We present a highly accurate single-image superresolution (SR) method. Our method uses a very deep convolutional network inspired by VGG-net used for
-ImageNet classification. We find increasing our network depth shows a significant improvement in accuracy. Our finalmodel uses 20 weight layers. By
-cascading small filters many times in a deep network structure, contextual information over large image regions is exploited in an efficient way. With
-very deep networks, however, convergence speed becomes a critical issue during training. We propose a simple yet effective training procedure. We
-learn residuals onlyb and use extremely high learning rates
-(104 times higher than SRCNN) enabled by adjustable gradient clipping. Our proposed method performs better than existing methods in accuracy and
-visual improvements in our results are easily noticeable.
+Recently, Convolutional Neural Network (CNN) based models have achieved great success in Single Image SuperResolution (SISR). Owing to the strength of
+deep networks, these CNN models learn an effective nonlinear mapping from the low-resolution input image to the high-resolution target image, at the
+cost of requiring enormous parameters. This paper proposes a very deep CNN model (up to 52 convolutional layers) named Deep Recursive Residual Network
+(DRRN) that strives for deep yet concise networks. Specifically, residual learning is adopted, both in global and local manners, to mitigate the
+difficulty of training very deep networks; recursive learning is used to control the model parameters while increasing the depth. Extensive benchmark
+evaluation shows that DRRN significantly outperforms state of the art in SISR, while utilizing far fewer parameters. Code is available
+at https://github.com/tyshiwo/DRRN CVPR17.
 
 [[Paper]](https://arxiv.org/pdf/1511.04587)
 
 ```
-@inproceedings{vedaldi15matconvnet,
-  author    = {A. Vedaldi and K. Lenc},
-  title     = {MatConvNet -- Convolutional Neural Networks for MATLAB},
-  booktitle = {Proceeding of the {ACM} Int. Conf. on Multimedia},
-  year      = {2015},
+@inproceedings{Tai-DRRN-2017,
+  title={Image Super-Resolution via Deep Recursive Residual Network},
+  author={Tai, Ying and Yang, Jian and Liu, Xiaoming },
+  booktitle={Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition},
+  year={2017}
 }
 ```
