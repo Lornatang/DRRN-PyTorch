@@ -51,7 +51,7 @@ if mode == "train":
     resume_weight = ""
 
     # Total num epochs
-    epochs = 80
+    epochs = 60
 
     # SGD optimizer parameter (less training and low PSNR)
     model_optimizer_name = "sgd"
