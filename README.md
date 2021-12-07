@@ -129,7 +129,7 @@ difficulty of training very deep networks; recursive learning is used to control
 evaluation shows that DRRN significantly outperforms state of the art in SISR, while utilizing far fewer parameters. Code is available
 at https://github.com/tyshiwo/DRRN CVPR17.
 
-[[Paper]](https://arxiv.org/pdf/1511.04587)
+[[Paper]](https://openaccess.thecvf.com/content_cvpr_2017/papers/Tai_Image_Super-Resolution_via_CVPR_2017_paper.pdf)
 
 ```
 @inproceedings{Tai-DRRN-2017,
