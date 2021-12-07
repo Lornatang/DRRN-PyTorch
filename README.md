@@ -94,10 +94,10 @@ Modify the contents of the file as follows.
 
 If you want to load weights that you've trained before, modify the contents of the file as follows.
 
-- line 56: `resume` change to `True`.
-- line 57: `strict` Transfer learning is set to `False`, incremental learning is set to `True`.
-- line 58: `start_epoch` change number of training iterations in the previous round.
-- line 59: `resume_weight` the weight address that needs to be loaded.
+- line 48: `resume` change to `True`.
+- line 49: `strict` Transfer learning is set to `False`, incremental learning is set to `True`.
+- line 50: `start_epoch` change number of training iterations in the previous round.
+- line 51: `resume_weight` the weight address that needs to be loaded.
 
 ## Result
 
