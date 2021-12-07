@@ -107,9 +107,9 @@ In the following table, the value in `()` indicates the result of the project, a
 
 | Dataset | Scale | (DRRN_B1U9) PSNR | (DRRN_B1U25) PSNR |
 |:-------:|:-----:|:----------------:|:-----------------:|
-|  Set5   |   2   | 37.66(**37.56**) |    37.74(****)    |
-|  Set5   |   3   | 33.93(**33.75**) |    34.03(****)    |
-|  Set5   |   4   | 31.58(**31.34**) |    31.68(****)    |
+|  Set5   |   2   | 37.66(**37.56**) | 37.74(**37.50**)  |
+|  Set5   |   3   | 33.93(**33.75**) | 34.03(**33.75**)  |
+|  Set5   |   4   | 31.58(**31.34**) | 31.68(**31.34**)  |
 
 Low Resolution / Super Resolution / High Resolution
 <span align="center"><img src="assets/result.png"/></span>
