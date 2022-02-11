@@ -2,9 +2,7 @@
 
 ### Overview
 
-This repository contains an op-for-op PyTorch reimplementation
-of [Image Super-Resolution via Deep Recursive Residual Network](https://openaccess.thecvf.com/content_cvpr_2017/papers/Tai_Image_Super-Resolution_via_CVPR_2017_paper.pdf)
-.
+This repository contains an op-for-op PyTorch reimplementation of [Image Super-Resolution via Deep Recursive Residual Network](https://openaccess.thecvf.com/content_cvpr_2017/papers/Tai_Image_Super-Resolution_via_CVPR_2017_paper.pdf).
 
 ### Table of contents
 
@@ -46,16 +44,7 @@ at https://github.com/tyshiwo/DRRN CVPR17.
 #### TB291
 
 - Image format
-    - [Google Driver](https://drive.google.com/drive/folders/13wiE6YqIhyix0RFxpFONJ7Zz_00CttdX?usp=sharing)
     - [Baidu Driver](https://pan.baidu.com/s/1mhbFj0Nvwthmgx07Gas5BQ) access: `llot`
-
-- LMDB format (train)
-    - [Google Driver](https://drive.google.com/drive/folders/1BPqN08QHk_xFnMJWMS8grfh_vesVs8Jf?usp=sharing)
-    - [Baidu Driver](https://pan.baidu.com/s/1eqeORnKcTmGatx2kAG92-A) access: `llot`
-
-- LMDB format (valid)
-    - [Google Driver](https://drive.google.com/drive/folders/1bYqqKk6NJ9wUfxTH2t_LbdMTB04OUicc?usp=sharing)
-    - [Baidu Driver](https://pan.baidu.com/s/1W34MeEtLY0m-bOrnaveVmw) access: `llot`
 
 ### Download valid dataset
 
@@ -81,23 +70,23 @@ at https://github.com/tyshiwo/DRRN CVPR17.
 
 Modify the contents of the file as follows.
 
-- line 24: `upscale_factor` change to the magnification you need to enlarge.
-- line 25: `mode` change Set to valid mode.
-- line 85: `model_path` change weight address after training.
+- line 25: `upscale_factor` change to the magnification you need to enlarge.
+- line 29: `mode` change Set to valid mode.
+- line 70: `model_path` change weight address after training.
 
 ## Train
 
 Modify the contents of the file as follows.
 
-- line 24: `upscale_factor` change to the magnification you need to enlarge.
-- line 25: `mode` change Set to train mode.
+- line 25: `upscale_factor` change to the magnification you need to enlarge.
+- line 29: `mode` change Set to train mode.
 
 If you want to load weights that you've trained before, modify the contents of the file as follows.
 
-- line 48: `resume` change to `True`.
-- line 49: `strict` Transfer learning is set to `False`, incremental learning is set to `True`.
-- line 50: `start_epoch` change number of training iterations in the previous round.
-- line 51: `resume_weight` the weight address that needs to be loaded.
+- line 43: `resume` change to `True`.
+- line 44: `strict` Transfer learning is set to `False`, incremental learning is set to `True`.
+- line 45: `start_epoch` change number of training iterations in the previous round.
+- line 46: `resume_weight` the weight address that needs to be loaded.
 
 ## Result
 

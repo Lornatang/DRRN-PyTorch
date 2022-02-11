@@ -13,32 +13,27 @@
 # ==============================================================================
 """Realize the parameter configuration function of dataset, model, training and verification code."""
 import torch
-from torch.backends import cudnn as cudnn
+from torch.backends import cudnn
 
-# ==============================================================================
-# General configuration
-# ==============================================================================
+# Random seed to maintain reproducible results
 torch.manual_seed(0)
+# Use GPU for training by default
 device = torch.device("cuda", 0)
+# Turning on when the image size does not change during training can speed up training
 cudnn.benchmark = True
+# Image magnification factor
 upscale_factor = 2
+# number of residual units
 num_residual_unit = 9
+# Current configuration parameter method
 mode = "train"
-exp_name = "DRRN_B1U9"
+# Experiment name, easy to save weights and log files
+exp_name = "drrn_B1U9_x2"
 
-# ==============================================================================
-# Training configuration
-# ==============================================================================
 if mode == "train":
     # Dataset
-    # Image format
     train_image_dir = "data/TB291/DRRN/train"
     valid_image_dir = "data/TB291/DRRN/valid"
-    # LMDB format
-    train_lr_lmdb_path = "data/train_lmdb/DRRN/TB291_LR_lmdb"
-    train_hr_lmdb_path = "data/train_lmdb/DRRN/TB291_HR_lmdb"
-    valid_lr_lmdb_path = "data/valid_lmdb/DRRN/TB291_LR_lmdb"
-    valid_hr_lmdb_path = "data/valid_lmdb/DRRN/TB291_HR_lmdb"
 
     image_size = 31
     batch_size = 128
@@ -53,30 +48,20 @@ if mode == "train":
     # Total num epochs
     epochs = 60
 
-    # SGD optimizer parameter (less training and low PSNR)
-    model_optimizer_name = "sgd"
+    # SGD optimizer parameter
     model_lr = 1e-1
     model_momentum = 0.9
     model_weight_decay = 1e-4
     model_nesterov = False
     model_clip_gradient = 0.01
 
-    # Adam optimizer parameter (faster training and better PSNR)
-    # model_optimizer_name = "adam"
-    # model_lr = 1e-1
-    # model_betas = (0.9, 0.999)
-    # model_clip_gradient = 0.01
-
     # Optimizer scheduler parameter
     lr_scheduler_name = "StepLR"
     lr_scheduler_step_size = 10
     lr_scheduler_gamma = 0.5
 
-    print_frequency = 100
+    print_frequency = 1000
 
-# ==============================================================================
-# Verify configuration
-# ==============================================================================
 if mode == "valid":
     # Test data address
     sr_dir = f"results/test/{exp_name}"
