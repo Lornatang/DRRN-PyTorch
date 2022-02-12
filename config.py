@@ -46,7 +46,7 @@ if mode == "train":
     resume_weight = ""
 
     # Total num epochs
-    epochs = 60
+    epochs = 50
 
     # SGD optimizer parameter
     model_lr = 1e-1

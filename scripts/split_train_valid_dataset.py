@@ -25,16 +25,16 @@ def main(args) -> None:
     valid_lr_image_dir = f"{args.valid_images_dir}/lr"
     valid_hr_image_dir = f"{args.valid_images_dir}/hr"
 
-    if not os.path.exists(args.train_lr_image_dir):
-        os.makedirs(args.train_lr_image_dir)
-    if not os.path.exists(args.train_hr_image_dir):
-        os.makedirs(args.train_hr_image_dir)
-    if not os.path.exists(args.valid_lr_image_dir):
-        os.makedirs(args.valid_lr_image_dir)
-    if not os.path.exists(args.valid_hr_image_dir):
-        os.makedirs(args.valid_hr_image_dir)
+    if not os.path.exists(train_lr_image_dir):
+        os.makedirs(train_lr_image_dir)
+    if not os.path.exists(train_hr_image_dir):
+        os.makedirs(train_hr_image_dir)
+    if not os.path.exists(valid_lr_image_dir):
+        os.makedirs(valid_lr_image_dir)
+    if not os.path.exists(valid_hr_image_dir):
+        os.makedirs(valid_hr_image_dir)
 
-    train_files = os.listdir(args.train_lr_image_dir)
+    train_files = os.listdir(train_lr_image_dir)
     valid_files = random.sample(train_files, int(len(train_files) * args.valid_samples_ratio))
 
     process_bar = tqdm(valid_files, total=len(valid_files), unit="image", desc="Split")
