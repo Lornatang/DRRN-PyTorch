@@ -18,8 +18,6 @@ import numpy as np
 from PIL import Image
 from torch import Tensor
 from torch.utils.data import Dataset
-from torchvision import transforms
-from torchvision.transforms.functional import InterpolationMode as IMode
 
 import imgproc
 
@@ -28,39 +26,24 @@ __all__ = ["ImageDataset"]
 
 class ImageDataset(Dataset):
     """Customize the data set loading function and prepare low/high resolution image data in advance.
-
     Args:
         dataroot         (str): Training data set address
-        image_size       (int): High resolution image size
-        upscale_factor   (int): Image magnification
-        mode             (str): Data set loading method, the training data set is for data enhancement,
-                             and the verification data set is not for data enhancement
-
     """
 
-    def __init__(self, dataroot: str, image_size: int, upscale_factor: int, mode: str) -> None:
+    def __init__(self, dataroot: str) -> None:
         super(ImageDataset, self).__init__()
-        self.image_file_names = [os.path.join(dataroot, x) for x in os.listdir(dataroot)]
+        self.image_file_name = [os.path.join(dataroot, x) for x in os.listdir(dataroot)]
 
-        if mode == "train":
-            self.hr_transforms = transforms.RandomCrop(image_size)
-        elif mode == "valid":
-            self.hr_transforms = transforms.CenterCrop(image_size)
-        else:
-            raise "Unsupported data processing model, please use `train` or `valid`."
-
-        self.lr_transforms = transforms.Compose([
-            transforms.Resize(image_size // upscale_factor, interpolation=IMode.BICUBIC),
-            transforms.Resize(image_size, interpolation=IMode.BICUBIC),
-        ])
+        lr_dir_path = os.path.join(dataroot, "lr")
+        hr_dir_path = os.path.join(dataroot, "hr")
+        self.image_file_name = os.listdir(lr_dir_path)
+        self.lr_filenames = [os.path.join(lr_dir_path, x) for x in self.image_file_name]
+        self.hr_filenames = [os.path.join(hr_dir_path, x) for x in self.image_file_name]
 
     def __getitem__(self, batch_index: int) -> [Tensor, Tensor]:
         # Read a batch of image data
-        image = Image.open(self.image_file_names[batch_index])
-
-        # Transform image
-        hr_image = self.hr_transforms(image)
-        lr_image = self.lr_transforms(hr_image)
+        lr_image = Image.open(self.lr_filenames[batch_index])
+        hr_image = Image.open(self.hr_filenames[batch_index])
 
         # Only extract the image data of the Y channel
         lr_image = np.array(lr_image).astype(np.float32)
@@ -76,4 +59,4 @@ class ImageDataset(Dataset):
         return lr_y_tensor, hr_y_tensor
 
     def __len__(self) -> int:
-        return len(self.image_file_names)
+        return len(self.image_file_name)

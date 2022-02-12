@@ -72,7 +72,7 @@ Modify the contents of the file as follows.
 
 - line 25: `upscale_factor` change to the magnification you need to enlarge.
 - line 29: `mode` change Set to valid mode.
-- line 70: `model_path` change weight address after training.
+- line 69: `model_path` change weight address after training.
 
 ## Train
 
@@ -96,8 +96,8 @@ In the following table, the value in `()` indicates the result of the project, a
 
 | Dataset | Scale | (DRRN_B1U9) PSNR | (DRRN_B1U25) PSNR |
 |:-------:|:-----:|:----------------:|:-----------------:|
-|  Set5   |   2   | 37.66(**37.56**) | 37.74(**37.50**)  |
-|  Set5   |   3   | 33.93(**33.75**) | 34.03(**33.75**)  |
+|  Set5   |   2   | 37.66(**37.36**) | 37.74(**37.50**)  |
+|  Set5   |   3   | 33.93(**33.76**) | 34.03(**33.75**)  |
 |  Set5   |   4   | 31.58(**31.34**) | 31.68(**31.34**)  |
 
 Low Resolution / Super Resolution / High Resolution

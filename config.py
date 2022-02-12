@@ -28,7 +28,7 @@ num_residual_unit = 9
 # Current configuration parameter method
 mode = "train"
 # Experiment name, easy to save weights and log files
-exp_name = "drrn_B1U9_x2"
+exp_name = "DRRN_B1U9"
 
 if mode == "train":
     # Dataset
@@ -56,7 +56,6 @@ if mode == "train":
     model_clip_gradient = 0.01
 
     # Optimizer scheduler parameter
-    lr_scheduler_name = "StepLR"
     lr_scheduler_step_size = 10
     lr_scheduler_gamma = 0.5
 
@@ -67,4 +66,4 @@ if mode == "valid":
     sr_dir = f"results/test/{exp_name}"
     hr_dir = f"data/Set5/GTmod12"
 
-    model_path = f"results/{exp_name}/last.pth"
+    model_path = f"results/{exp_name}/best.pth"

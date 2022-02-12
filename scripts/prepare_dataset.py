@@ -21,12 +21,15 @@ from tqdm import tqdm
 
 
 def main(args) -> None:
-    if os.path.exists(args.output_dir):
-        shutil.rmtree(args.output_dir)
-    os.makedirs(args.output_dir)
+    if os.path.exists(args.lr_output_dir):
+        shutil.rmtree(args.lr_output_dir)
+    if os.path.exists(args.hr_output_dir):
+        shutil.rmtree(args.hr_output_dir)
+    os.makedirs(args.lr_output_dir)
+    os.makedirs(args.hr_output_dir)
 
     # Get all image paths
-    image_file_names = os.listdir(args.images_dir)
+    image_file_names = os.listdir(args.lr_images_dir)
 
     # Splitting images with multiple threads
     progress_bar = tqdm(total=len(image_file_names), unit="image", desc="Split")
@@ -39,22 +42,29 @@ def main(args) -> None:
 
 
 def worker(image_file_name, args) -> None:
-    image = Image.open(f"{args.images_dir}/{image_file_name}").convert("RGB")
+    lr_image = Image.open(f"{args.lr_images_dir}/{image_file_name}").convert("RGB")
+    hr_image = Image.open(f"{args.hr_images_dir}/{image_file_name}").convert("RGB")
 
     index = 1
-    if image.width >= args.image_size and image.height >= args.image_size:
-        for pos_x in range(0, image.width - args.image_size + 1, args.step):
-            for pos_y in range(0, image.height - args.image_size + 1, args.step):
-                index += 1
-                crop_image = image.crop([pos_x, pos_y, pos_x + args.image_size, pos_y + args.image_size])
+    if lr_image.width >= args.image_size and lr_image.height >= args.image_size:
+        for pos_x in range(0, lr_image.width - args.image_size + 1, args.step):
+            for pos_y in range(0, lr_image.height - args.image_size + 1, args.step):
+                # crop box xywh
+                crop_lr_image = lr_image.crop([pos_x, pos_y, pos_x + args.image_size, pos_y + args.image_size])
+                crop_hr_image = hr_image.crop([pos_x, pos_y, pos_x + args.image_size, pos_y + args.image_size])
                 # Save all images
-                crop_image.save(f"{args.output_dir}/{image_file_name.split('.')[-2]}_{index:04d}.{image_file_name.split('.')[-1]}")
+                crop_lr_image.save(f"{args.lr_output_dir}/{image_file_name.split('.')[-2]}_{index:04d}.{image_file_name.split('.')[-1]}")
+                crop_lr_image.save(f"{args.hr_output_dir}/{image_file_name.split('.')[-2]}_{index:04d}.{image_file_name.split('.')[-1]}")
+
+                index += 1
 
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Prepare database scripts.")
-    parser.add_argument("--images_dir", type=str, help="Path to input image directory.")
-    parser.add_argument("--output_dir", type=str, help="Path to generator image directory.")
+    parser.add_argument("--lr_images_dir", type=str, help="Path to lr image directory.")
+    parser.add_argument("--hr_images_dir", type=str, help="Path to hr image directory.")
+    parser.add_argument("--lr_output_dir", type=str, help="Path to generator lr image directory.")
+    parser.add_argument("--hr_output_dir", type=str, help="Path to generator hr image directory.")
     parser.add_argument("--image_size", type=int, help="Low-resolution image size from raw image.")
     parser.add_argument("--step", type=int, help="Crop image similar to sliding window.")
     parser.add_argument("--num_workers", type=int, help="How many threads to open at the same time.")
