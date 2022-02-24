@@ -12,8 +12,6 @@ This repository contains an op-for-op PyTorch reimplementation of [Image Super-R
     - [About Image Super-Resolution via Deep Recursive Residual Network](#about-image-super-resolution-via-deep-recursive-residual-network)
     - [Download weights](#download-weights)
     - [Download datasets](#download-datasets)
-        - [Download train dataset](#download-train-dataset)
-        - [Download valid dataset](#download-valid-dataset)
     - [Test](#test)
     - [Train](#train)
     - [Result](#result)
@@ -39,54 +37,32 @@ at https://github.com/tyshiwo/DRRN CVPR17.
 
 ## Download datasets
 
-### Download train dataset
+Contains DIV2K, DIV8K, Flickr2K, OST, T91, Set5, Set14, BSDS100 and BSDS200, etc.
 
-#### TB291
-
-- Image format
-    - [Baidu Driver](https://pan.baidu.com/s/1mhbFj0Nvwthmgx07Gas5BQ) access: `llot`
-
-### Download valid dataset
-
-#### Set5
-
-- Image format
-    - [Google Driver](https://drive.google.com/file/d/1GtQuoEN78q3AIP8vkh-17X90thYp_FfU/view?usp=sharing)
-    - [Baidu Driver](https://pan.baidu.com/s/1dlPcpwRPUBOnxlfW5--S5g) access:`llot`
-
-#### Set14
-
-- Image format
-    - [Google Driver](https://drive.google.com/file/d/1CzwwAtLSW9sog3acXj8s7Hg3S7kr2HiZ/view?usp=sharing)
-    - [Baidu Driver](https://pan.baidu.com/s/1KBS38UAjM7bJ_e6a54eHaA) access:`llot`
-
-#### BSD200
-
-- Image format
-    - [Google Driver](https://drive.google.com/file/d/1cdMYTPr77RdOgyAvJPMQqaJHWrD5ma5n/view?usp=sharing)
-    - [Baidu Driver](https://pan.baidu.com/s/1xahPw4dNNc3XspMMOuw1Bw) access:`llot`
+- [Google Driver](https://drive.google.com/drive/folders/1A6lzGeQrFMxPqJehK9s37ce-tPDj20mD?usp=sharing)
+- [Baidu Driver](https://pan.baidu.com/s/1o-8Ty_7q6DiS3ykLU09IVg?pwd=llot)
 
 ## Test
 
 Modify the contents of the file as follows.
 
-- line 25: `upscale_factor` change to the magnification you need to enlarge.
-- line 29: `mode` change Set to valid mode.
-- line 69: `model_path` change weight address after training.
+- line 30: `upscale_factor` change to the magnification you need to enlarge.
+- line 32: `num_residual_unit` change to Residual Neural Network Depth.
+- line 34: `mode` change Set to valid mode.
+- line 75: `model_path` change weight address after training.
 
 ## Train
 
 Modify the contents of the file as follows.
 
-- line 25: `upscale_factor` change to the magnification you need to enlarge.
-- line 29: `mode` change Set to train mode.
+- line 30: `upscale_factor` change to the magnification you need to enlarge.
+- line 32: `num_residual_unit` change to Residual Neural Network Depth.
+- line 34: `mode` change Set to train mode.
 
 If you want to load weights that you've trained before, modify the contents of the file as follows.
 
-- line 43: `resume` change to `True`.
-- line 44: `strict` Transfer learning is set to `False`, incremental learning is set to `True`.
-- line 45: `start_epoch` change number of training iterations in the previous round.
-- line 46: `resume_weight` the weight address that needs to be loaded.
+- line 49: `start_epoch` change number of training iterations in the previous round.
+- line 50: `resume` change to `True`.
 
 ## Result
 
@@ -98,7 +74,7 @@ In the following table, the value in `()` indicates the result of the project, a
 |:-------:|:-----:|:----------------:|:-----------------:|
 |  Set5   |   2   | 37.66(**37.56**) | 37.74(**37.50**)  |
 |  Set5   |   3   | 33.93(**33.75**) | 34.03(**33.75**)  |
-|  Set5   |   4   | 31.58(**31.34**) | 31.68(**31.34**)  |
+|  Set5   |   4   | 31.58(**31.34**) | 31.68(**31.38**)  |
 
 Low Resolution / Super Resolution / High Resolution
 <span align="center"><img src="assets/result.png"/></span>
@@ -118,7 +94,7 @@ difficulty of training very deep networks; recursive learning is used to control
 evaluation shows that DRRN significantly outperforms state of the art in SISR, while utilizing far fewer parameters. Code is available
 at https://github.com/tyshiwo/DRRN CVPR17.
 
-[[Paper]](https://openaccess.thecvf.com/content_cvpr_2017/papers/Tai_Image_Super-Resolution_via_CVPR_2017_paper.pdf)
+[[Paper]](https://openaccess.thecvf.com/content_cvpr_2017/papers/Tai_Image_Super-Resolution_via_CVPR_2017_paper.pdf) [[Author's implements(Caffe)]](https://github.com/tyshiwo/DRRN_CVPR17)
 
 ```
 @inproceedings{Tai-DRRN-2017,
