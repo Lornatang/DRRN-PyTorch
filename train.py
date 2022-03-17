@@ -111,7 +111,7 @@ def load_dataset() -> [DataLoader, DataLoader]:
     # Load train, test and valid datasets
     train_datasets = TrainValidImageDataset(config.train_image_dir, config.image_size, "Train")
     valid_datasets = TrainValidImageDataset(config.valid_image_dir, config.image_size, "Valid")
-    test_datasets = TestImageDataset(config.test_image_dir, config.upscale_factor)
+    test_datasets = TestImageDataset(config.test_lr_image_dir, config.test_hr_image_dir, config.upscale_factor)
 
     # Generator all dataloader
     train_dataloader = DataLoader(train_datasets,

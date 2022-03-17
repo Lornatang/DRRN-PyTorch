@@ -46,23 +46,23 @@ Contains DIV2K, DIV8K, Flickr2K, OST, T91, Set5, Set14, BSDS100 and BSDS200, etc
 
 Modify the contents of the file as follows.
 
-- line 30: `upscale_factor` change to the magnification you need to enlarge.
-- line 32: `num_residual_unit` change to Residual Neural Network Depth.
-- line 34: `mode` change Set to valid mode.
-- line 75: `model_path` change weight address after training.
+- line 29: `upscale_factor` change to the magnification you need to enlarge.
+- line 31: `num_residual_unit` change to Residual Neural Network Depth.
+- line 33: `mode` change Set to valid mode.
+- line 76: `model_path` change weight address after training.
 
 ## Train
 
 Modify the contents of the file as follows.
 
-- line 30: `upscale_factor` change to the magnification you need to enlarge.
-- line 32: `num_residual_unit` change to Residual Neural Network Depth.
-- line 34: `mode` change Set to train mode.
+- line 29: `upscale_factor` change to the magnification you need to enlarge.
+- line 31: `num_residual_unit` change to Residual Neural Network Depth.
+- line 33: `mode` change Set to train mode.
 
 If you want to load weights that you've trained before, modify the contents of the file as follows.
 
 - line 49: `start_epoch` change number of training iterations in the previous round.
-- line 50: `resume` change to `True`.
+- line 50: `resume` change weight address that needs to be loaded.
 
 ## Result
 
