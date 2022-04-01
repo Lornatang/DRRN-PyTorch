@@ -50,8 +50,8 @@ class TrainValidImageDataset(Dataset):
 
     def __getitem__(self, batch_index: int) -> [torch.Tensor, torch.Tensor]:
         # Read a batch of image data
-        lr_image = cv2.imread(self.lr_image_file_name[batch_index], cv2.IMREAD_UNCHANGED).astype(np.float32) / 255.
-        hr_image = cv2.imread(self.hr_image_file_name[batch_index], cv2.IMREAD_UNCHANGED).astype(np.float32) / 255.
+        lr_image = cv2.imread(self.lr_image_file_names[batch_index], cv2.IMREAD_UNCHANGED).astype(np.float32) / 255.
+        hr_image = cv2.imread(self.hr_image_file_names[batch_index], cv2.IMREAD_UNCHANGED).astype(np.float32) / 255.
 
         if self.mode == "Train":
             # Data augment
