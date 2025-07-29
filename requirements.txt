@@ -1,6 +1,6 @@
 opencv-python==4.6.0.66
 numpy==1.23.5
-torch==2.0.1+cu118
+torch==2.2.0
 typing==3.7.4.3
 Pillow==10.3.0
 tqdm==4.66.3
