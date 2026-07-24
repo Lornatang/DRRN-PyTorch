@@ -4,6 +4,6 @@ torch==2.2.0
 typing==3.7.4.3
 Pillow
 tqdm==4.66.3
-setuptools==70.0.0
+setuptools==83.0.0
 torchvision==0.15.2+cu118
 natsort==8.1.0
