@@ -1,9 +1,8 @@
-opencv-python==4.8.1.78
-numpy==1.23.5
-torch==2.2.0
-typing==3.7.4.3
+opencv-python>=4.8.1.78
+numpy>=1.23.5
+torch>=2.2.0
 Pillow
-tqdm==4.66.3
-setuptools==70.0.0
-torchvision==0.15.2+cu118
-natsort==8.1.0
+tqdm>=4.66.3
+setuptools>=70.0.0
+torchvision>=0.17.0
+natsort>=8.1.0
